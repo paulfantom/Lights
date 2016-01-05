@@ -19,6 +19,7 @@ def convertData(data):
 
 def send(data,host="192.168.10.48"):
     host = "http://"+host+"/leds"
+    print(host)
     try:
         r = requests.post(host,data=data)
         
@@ -85,4 +86,4 @@ if __name__ == '__main__':
         print("too many parameters")
         sys.exit(1)
   
-    send(convertData(data))
+    send(convertData(data),lamp)
