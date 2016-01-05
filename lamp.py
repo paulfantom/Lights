@@ -65,17 +65,27 @@ def normalize(h,s,v):
 
 if __name__ == '__main__':  
     if len(sys.argv) == 1:
-        data=[240,1023,1023]
-        while True:
-            data[0]=(data[0]+1)%360
-            d=normalize(*data)
-            send(convertData(d))
-            time.sleep(0.4)
+        print("Usage:",sys.argv[0],"[PARAMETERS]")
+        print("  PARAMETERS:")
+        print("  on     - switch light on (white)")
+        print("  off    - switch light off")
+        print("  smooth - smoothly change hue")
+        print("  H      - set Hue (number from 0 to 360)")
+        print("  H S    - set Hue (0 to 360) and Saturation (0 to 100)")
+        print("  H S V  - set Hue (0 to 360), Saturation (0 to 100), Value (0 to 100)")
+        sys.exit(1)
     if len(sys.argv) == 2:
         if sys.argv[1] == "on":
             data=normalize(0,0,1023)
         elif sys.argv[1] == "off":
             data=normalize(0,0,0)
+        elif sys.argv[1] == "smooth":
+            data=[240,1023,1023]
+            while True:
+                data[0]=(data[0]+1)%360
+                d=normalize(*data)
+                send(convertData(d))
+                time.sleep(0.4)   
         else:
             data=normalize(float(sys.argv[1]),1023,1023)
     if len(sys.argv) == 3:
